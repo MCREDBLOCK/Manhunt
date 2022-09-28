@@ -55,8 +55,8 @@
 
     <repositories>
         <repository>
-            <id>papermc-repo</id>
-            <url>https://papermc.io/repo/repository/maven-public/</url>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
             <id>sonatype</id>
@@ -66,9 +66,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.destroystokyo.paper</groupId>
-            <artifactId>paper-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.19.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -81,7 +81,7 @@
             <artifactId>Multiverse-Core</artifactId>
             <version>4.22</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/java/com/redblock6/manhunt/Multiverse-Core-4.2.2 (1).jar</systemPath>
+            <systemPath>${project.basedir}/src/main/java/com/redblock6/manhunt/Multiverse-Core-4.3.1 (1).jar</systemPath>
         </dependency>
     </dependencies>
 </project>

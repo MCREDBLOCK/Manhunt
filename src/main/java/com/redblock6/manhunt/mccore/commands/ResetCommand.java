@@ -56,20 +56,24 @@ public class ResetCommand implements Listener, CommandExecutor {
         return false;
     }
 
-    public static void resetWorld(String type){
+    public static void resetWorld(String type) {
+        hunters.clear();
+        speedrunners.clear();
         for (Player lp : Bukkit.getOnlinePlayers()) {
             lp.setInvisible(true);
             lp.getInventory().clear();
             lp.setHealth(20);
+            lp.setGameMode(GameMode.CREATIVE);
+            lp.setFlying(true);
             lp.setFoodLevel(lp.getFoodLevel());
-            lp.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1000, 255));
+            lp.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 255));
             lp.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100000, 255));
             lp.teleport(new Location(Bukkit.getWorld("loading"), 0, 31, 0));
+            Bukkit.getWorld("loading").getBlockAt(new Location(Bukkit.getWorld("loading"), 0, 30, 0)).setType(Material.BARRIER);
             lp.playSound(lp.getLocation(), Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 100, 2);
             lp.playSound(lp.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
             lp.sendMessage(translate("&2&l> &fThe world is being reset!"));
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "st stop");
-            lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§2§lLOADING..."));
+            lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§7✔ ✔ ✔ §2§lLOADING"));
         }
         // resetWorld(Bukkit.getWorld("world"), WorldType.NORMAL, World.Environment.NORMAL);
         // resetWorld(Bukkit.getWorld("world_nether"), WorldType.NORMAL, World.Environment.NETHER);
@@ -82,7 +86,7 @@ public class ResetCommand implements Listener, CommandExecutor {
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mvconfirm");
                 for (Player lp : Bukkit.getOnlinePlayers()) {
                     lp.teleport(new Location(Bukkit.getWorld("loading"), 0, 31, 0));
-                    lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§2§lLOADING..."));
+                    lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§2✔ §7✔ ✔ §2§lLOADING"));
                 }
             }
         }.runTaskLater(Main.getInstance(), 5);
@@ -93,7 +97,7 @@ public class ResetCommand implements Listener, CommandExecutor {
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mvregen actworld_nether -s");
                 for (Player lp : Bukkit.getOnlinePlayers()) {
                     lp.teleport(new Location(Bukkit.getWorld("loading"), 0, 31, 0));
-                    lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§2§lLOADING..."));
+                    lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§2✔ §7✔ ✔ §2§lLOADING"));
                 }
             }
         }.runTaskLater(Main.getInstance(), 10);
@@ -103,7 +107,7 @@ public class ResetCommand implements Listener, CommandExecutor {
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mvconfirm");
                 for (Player lp : Bukkit.getOnlinePlayers()) {
                     lp.teleport(new Location(Bukkit.getWorld("loading"), 0, 31, 0));
-                    lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§2§lLOADING..."));
+                    lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§2✔ ✔ §7✔ §2§lLOADING"));
                 }
             }
         }.runTaskLater(Main.getInstance(), 15);
@@ -113,7 +117,7 @@ public class ResetCommand implements Listener, CommandExecutor {
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mvregen actworld_the_end -s");
                 for (Player lp : Bukkit.getOnlinePlayers()) {
                     lp.teleport(new Location(Bukkit.getWorld("loading"), 0, 31, 0));
-                    lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§2§lLOADING..."));
+                    lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§2✔ ✔ §7✔ §2§lLOADING"));
                 }
             }
         }.runTaskLater(Main.getInstance(), 20);
@@ -123,7 +127,7 @@ public class ResetCommand implements Listener, CommandExecutor {
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mvconfirm");
                 for (Player lp : Bukkit.getOnlinePlayers()) {
                     lp.teleport(new Location(Bukkit.getWorld("loading"), 0, 31, 0));
-                    lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§2§lLOADING..."));
+                    lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§2✔ ✔ ✔ §2§lLOADING"));
                 }
             }
         }.runTaskLater(Main.getInstance(), 25);
@@ -163,9 +167,10 @@ public class ResetCommand implements Listener, CommandExecutor {
         new BukkitRunnable() {
             @Override
             public void run() {
-                RandomTeleport.teleportAllPlayers(Bukkit.getWorld("actworld"));
                 for (Player lp : Bukkit.getOnlinePlayers()) {
                     try  {
+                        lp.setGameMode(GameMode.SURVIVAL);
+                        lp.getInventory().clear();
                         lp.setInvisible(false);
                         for (PotionEffect effect : lp.getActivePotionEffects()) {
                             lp.removePotionEffect(effect.getType());
@@ -174,7 +179,7 @@ public class ResetCommand implements Listener, CommandExecutor {
                         lp.playSound(lp.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
 
                         lp.sendMessage(translate("&2&l> &fSuccessfully reset the world!"));
-                        lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(""));
+                        lp.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§2§lTELEPORTING"));
                         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "st start");
                     } catch (NullPointerException ex) {
                         ex.printStackTrace();
@@ -182,27 +187,52 @@ public class ResetCommand implements Listener, CommandExecutor {
                         lp.sendMessage(translate("&4&l> &fError creating a world!"));
                     }
                 }
+                RandomTeleport.teleportAllPlayers(Bukkit.getWorld("actworld"));
+
             }
         }.runTaskLater(Main.getInstance(), 120);
 
         if (type.equals("MANHUNT")) {
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                Random rand = new Random();
-                int job = rand.nextInt(2);
-                if (job == 0) {
-                    p.sendTitle(translate("&4&lHUNTER"), translate("&fYou are a hunter!"));
-                    Bukkit.broadcastMessage(translate("&4&l> &c" + p.getName() + " &fis a hunter!"));
-                    p.setDisplayName(translate("&4&lHUNTER &f" + p.getName()));
-                    hunters.add(p);
-                    Bukkit.dispatchCommand(p, "giveCompass");
-                } else if (job == 1) {
-                    p.sendTitle(translate("&2&lSPEEDRUNNER"), translate("&fYou are a speedrunner!"));
-                    Bukkit.broadcastMessage(translate("&2&l> &a" + p.getName() + " &fis a speedrunner!"));
-                    p.setDisplayName(translate("&2&lSPEEDRUNNER &f" + p.getName()));
-                    speedrunners.add(p);
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "addSpeedrunners" + p.getName());
+            for (Player p : hunters) {
+                hunters.remove(p);
+            }
+            for (Player p : speedrunners) {
+                speedrunners.remove(p);
+            }
+            if (Bukkit.getOnlinePlayers().size() == 2) {
+                Player p = (Player) Bukkit.getOnlinePlayers().toArray()[0];
+                p.sendTitle(translate("&4&lHUNTER"), translate("&fYou are a hunter!"));
+                Bukkit.broadcastMessage(translate("&4&l> &c" + p.getName() + " &fis a hunter!"));
+                p.setDisplayName(translate("&4&lHUNTER &f" + p.getName()));
+                hunters.add(p);
+                Bukkit.dispatchCommand(p, "giveCompass");
+
+                Player p2 = (Player) Bukkit.getOnlinePlayers().toArray()[1];
+                p2.sendTitle(translate("&2&lSPEEDRUNNER"), translate("&fYou are a speedrunner!"));
+                Bukkit.broadcastMessage(translate("&2&l> &a" + p2.getName() + " &fis a speedrunner!"));
+                p2.setDisplayName(translate("&2&lSPEEDRUNNER &f" + p2.getName()));
+                speedrunners.add(p2);
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "addSpeedrunners" + p2.getName());
+            } else {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    Random rand = new Random();
+                    int job = rand.nextInt(2);
+                    if (job == 0) {
+                        p.sendTitle(translate("&4&lHUNTER"), translate("&fYou are a hunter!"));
+                        Bukkit.broadcastMessage(translate("&4&l> &c" + p.getName() + " &fis a hunter!"));
+                        p.setDisplayName(translate("&4&lHUNTER &f" + p.getName()));
+                        hunters.add(p);
+                        Bukkit.dispatchCommand(p, "giveCompass");
+                    } else if (job == 1) {
+                        p.sendTitle(translate("&2&lSPEEDRUNNER"), translate("&fYou are a speedrunner!"));
+                        Bukkit.broadcastMessage(translate("&2&l> &a" + p.getName() + " &fis a speedrunner!"));
+                        p.setDisplayName(translate("&2&lSPEEDRUNNER &f" + p.getName()));
+                        speedrunners.add(p);
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "addSpeedrunners" + p.getName());
+                    }
                 }
             }
+
         }
     }
 

@@ -1,7 +1,7 @@
 name: Manhunt
 version: ${project.version}
 main: com.redblock6.manhunt.Main
-api-version: 1.16
+api-version: 1.19
 authors: [ Redblock6 ]
 description: yes
 
@@ -10,14 +10,6 @@ commands:
     description: Enable or disable streaming mode
   warnreboot:
     description: Warns the server before a reboot
-  gmc:
-    description: Creative
-  gms:
-    description: Survival
-  gmsp:
-    description: Spectator
-  gma:
-    description: Adventure
   reset:
     description: Reset your world
   createloading:
@@ -28,13 +20,5 @@ commands:
     description: Reset your world
 
 permissions:
-  redblock.gamemode.creative:
-    description: Sets your gamemode to creative
-  redblock.gamemode.survival:
-    description: Sets your gamemode to survival
-  redblock.gamemode.adventure:
-    description: Sets your gamemode to adventure
-  redblock.gamemode.spectator:
-    description: Sets your gamemode to spectator
   redblock.warnreboot:
     description: Warn players of a reboot

@@ -25,6 +25,18 @@ public class Main extends JavaPlugin {
             loading.generator(new Generator());
             loading.createWorld();
         }
+
+        if (Bukkit.getWorld("actworld") == null) {
+            WorldCreator actworld = new WorldCreator("actworld");
+            actworld.environment(World.Environment.NORMAL);
+            actworld.createWorld();
+            WorldCreator actworld_nether = new WorldCreator("actworld_nether");
+            actworld_nether.environment(World.Environment.NETHER);
+            actworld_nether.createWorld();
+            WorldCreator actworld_the_end = new WorldCreator("actworld_the_end");
+            actworld_the_end.environment(World.Environment.THE_END);
+            actworld_the_end.createWorld();
+        }
     }
 
     @Override

@@ -12,6 +12,9 @@ public class DeathDamageEvent implements Listener {
         if (!(e.getEntity() instanceof Player)) {
             return;
         }
+        if (e.getCause().equals(EntityDamageEvent.DamageCause.VOID)) {
+            e.setCancelled(true);
+        }
 
         if (ResetCommand.noDamage.contains(e.getEntity())) {
             ResetCommand.noDamage.remove(e.getEntity());
